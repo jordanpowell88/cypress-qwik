@@ -1,23 +1,29 @@
-import type { JSXNode } from '@builder.io/qwik';
-import { render } from '@builder.io/qwik';
-import { getContainerEl } from '@cypress/mount-utils';
+import { getContainerEl, setupHooks } from '@cypress/mount-utils';
+import { render, type RenderOptions } from '@builder.io/qwik';
 
-// MIGHT NOT NEED CLEANUP
-
-// let destroy: () => void | undefined;
-
-// function cleanup() {
-//   if (destroy) destroy();
-// }
-
-export function mount(element: JSXNode) {
-  const root = getContainerEl();
-
-  const renderPromise = render(root, element);
-
-  return cy.wrap(renderPromise, { log: false });
+interface MountingOptions {
+  log?: boolean;
 }
 
-// MIGHT NOT NEED CLEANUP
+export function mount(
+  Component: Parameters<typeof render>[0],
+  options: RenderOptions & MountingOptions = {}
+) {
+  const root = getContainerEl();
 
-// setupHooks(cleanup);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const mountResponse = render(root, <Component />, options);
+
+  if (options.log) {
+    Cypress.log({
+      name: 'mount',
+      message: '',
+      consoleProps: () => ({ result: mountResponse }),
+    });
+  }
+
+  return cy.wrap(mountResponse, { log: false });
+}
+
+setupHooks();

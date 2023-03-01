@@ -5,62 +5,53 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nrwl/rollup:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/cypress-ct-qwik",
+        "outputPath": "node_modules/cypress-ct-qwik",
         "main": "packages/cypress-ct-qwik/src/index.ts",
         "tsConfig": "packages/cypress-ct-qwik/tsconfig.lib.json",
-
         "assets": [
-          "README.md",
-          "CONTRIBUTING.md",
-          "CODE_OF_CONDUCT.md",
-          "LICENSE",
           {
             "input": "./assets",
             "glob": "cypress-qwik.png",
             "output": "./assets"
+          },
+          {
+            "input": "./",
+            "glob": "README.md",
+            "output": "./"
+          },
+          {
+            "input": "./",
+            "glob": "CONTRIBUTING.md",
+            "output": "./"
+          },
+          {
+            "input": "./",
+            "glob": "CODE_OF_CONTACT.md",
+            "output": "./"
+          },
+          {
+            "input": "./",
+            "glob": "LICENSE",
+            "output": "./"
           }
         ]
       }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs cypress-ct-qwik {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["packages/cypress-ct-qwik/**/*.ts"]
-      }
-    },
-    "version": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "releaseAs": "patch"
-      }
-    },
-    "version-publish": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "noVerify": true,
-        "push": true,
-        "releaseAs": "patch",
-        "postTargets": [
-          "cypress-ct-qwik:publish",
-          "cypress-ct-qwik:push-to-github"
-        ]
-      }
-    },
-    "publish": {
-      "executor": "ngx-deploy-npm:deploy",
-      "options": {
-        "access": "public"
-      }
-    },
-    "push-to-github": {
-      "executor": "@jscutlery/semver:github",
-      "options": {
-        "tag": "${tag}",
-        "notes": "${notes}"
       }
     }
   },
