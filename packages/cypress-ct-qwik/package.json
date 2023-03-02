@@ -2,12 +2,28 @@
   "name": "cypress-ct-qwik",
   "version": "0.0.1",
   "type": "commonjs",
-  "exports": "./src/index.js",
+  "exports": {
+    "node": "./src/definition.js",
+    "default": "./src/mount.js"
+  },
   "dependencies": {
     "@cypress/mount-utils": "^4.0.0"
   },
   "peerDependencies": {
     "cypress": ">=12.7.0",
     "@builder.io/qwik": "0.20.1"
-  }
+  },
+  "scripts": {
+    "build": "build:definition && npm run build:mount",
+    "build:mount": "tsc --project tsconfig.mount.json",
+    "build:definition": "tsc --project tsconfig.definition.json"
+  },
+  "types": "src/*.d.ts",
+  "files": [
+    "package.json",
+    "definition.js",
+    "index.js",
+    "definition.d.ts",
+    "index.d.ts"
+  ]
 }

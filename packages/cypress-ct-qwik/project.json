@@ -1,44 +1,30 @@
 {
   "name": "cypress-ct-qwik",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "root": "packages/cypress-ct-qwik",
   "sourceRoot": "packages/cypress-ct-qwik/src",
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nrwl/rollup:rollup",
-      "outputs": ["{options.outputPath}"],
+    "definition": {
+      "executor": "nx:run-commands",
       "options": {
-        "outputPath": "node_modules/cypress-ct-qwik",
-        "main": "packages/cypress-ct-qwik/src/index.ts",
-        "tsConfig": "packages/cypress-ct-qwik/tsconfig.lib.json",
-        "assets": [
-          {
-            "input": "./assets",
-            "glob": "cypress-qwik.png",
-            "output": "./assets"
-          },
-          {
-            "input": "./",
-            "glob": "README.md",
-            "output": "./"
-          },
-          {
-            "input": "./",
-            "glob": "CONTRIBUTING.md",
-            "output": "./"
-          },
-          {
-            "input": "./",
-            "glob": "CODE_OF_CONTACT.md",
-            "output": "./"
-          },
-          {
-            "input": "./",
-            "glob": "LICENSE",
-            "output": "./"
-          }
-        ]
+        "command": "tsc --project ./packages/cypress-ct-qwik/tsconfig.definition.json"
       }
+    },
+    "mount": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --project ./packages/cypress-ct-qwik/tsconfig.mount.json"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": " mkdir -p ./apps/qwik-app/node_modules && cp -r ./packages/cypress-ct-qwik ./apps/qwik-app/node_modules/cypress-ct-qwik"
+      },
+      "outputPath": "node_modules/cypress-ct-qwik",
+      "outputs": ["{options.outputPath}"],
+      "dependsOn": ["definition", "mount"]
     },
     "publish": {
       "executor": "nx:run-commands",

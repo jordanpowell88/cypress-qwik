@@ -18,7 +18,7 @@ const qwikCity: Cypress.CypressComponentDependency = {
   minVersion: '^0.4.0',
 };
 
-export const definition = defineComponentFramework({
+export default defineComponentFramework({
   /**
    * This should match the `npm` package name.
    * The convention required to ensure your Definition is processed

@@ -124,6 +124,10 @@ This project follows the [all-contributors](https://github.com/all-contributors/
 
 <br/>
 
+## Development
+
+- build with `pnpx nx run cypress-ct-qwik:build`
+
 ## Related Links
 
 - [Cypress-Qwik Discord](https://discord.gg/PVWUUejrez)

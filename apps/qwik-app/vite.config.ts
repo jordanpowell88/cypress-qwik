@@ -6,7 +6,7 @@ import { qwikNxVite } from 'qwik-nx/plugins';
 
 export default defineConfig({
   plugins: [
-    qwikNxVite(),
+    // qwikNxVite(),
     qwikCity(),
     qwikVite({
       client: {
