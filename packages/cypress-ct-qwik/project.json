@@ -5,26 +5,54 @@
   "sourceRoot": "packages/cypress-ct-qwik/src",
   "projectType": "library",
   "targets": {
-    "definition": {
-      "executor": "nx:run-commands",
+    "prebuild": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
       "options": {
-        "command": "tsc --project ./packages/cypress-ct-qwik/tsconfig.definition.json"
-      }
-    },
-    "mount": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "tsc --project ./packages/cypress-ct-qwik/tsconfig.mount.json"
+        "outputPath": "dist/packages/cypress-ct-qwik",
+        "tsConfig": "packages/cypress-ct-qwik/tsconfig.lib.json",
+        "main": "packages/cypress-ct-qwik/src/index.ts",
+        "assets": [
+          {
+            "input": "./assets",
+            "glob": "cypress-qwik.png",
+            "output": "./"
+          },
+          {
+            "input": "./",
+            "glob": "README.md",
+            "output": "./"
+          },
+          {
+            "input": "./",
+            "glob": "CONTRIBUTING.md",
+            "output": "./"
+          },
+          {
+            "input": "./",
+            "glob": "CODE_OF_CONDUCT.md",
+            "output": "./"
+          },
+          {
+            "input": "./",
+            "glob": "LICENSE",
+            "output": "./"
+          }
+        ]
       }
     },
     "build": {
       "executor": "nx:run-commands",
+      "dependsOn": ["^build", "prebuild"],
       "options": {
-        "command": " mkdir -p ./apps/qwik-app/node_modules && cp -r ./packages/cypress-ct-qwik ./apps/qwik-app/node_modules/cypress-ct-qwik"
+        "commands": [
+          "cp -r dist/packages/cypress-ct-qwik node_modules",
+          "cp -r dist/packages/cypress-ct-qwik-definition/src node_modules/cypress-ct-qwik",
+          "cp -r dist/packages/cypress-ct-qwik-mount/src node_modules/cypress-ct-qwik"
+        ]
       },
       "outputPath": "node_modules/cypress-ct-qwik",
-      "outputs": ["{options.outputPath}"],
-      "dependsOn": ["definition", "mount"]
+      "outputs": ["{options.outputPath}"]
     },
     "publish": {
       "executor": "nx:run-commands",
@@ -41,5 +69,9 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "implicitDependencies": [
+    "cypress-ct-qwik-mount",
+    "cypress-ct-qwik-definition"
+  ]
 }

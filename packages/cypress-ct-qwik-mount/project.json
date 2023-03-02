@@ -1,0 +1,26 @@
+{
+  "name": "cypress-ct-qwik-mount",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/cypress-ct-qwik-mount/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/cypress-ct-qwik-mount",
+        "main": "packages/cypress-ct-qwik-mount/src/mount.tsx",
+        "tsConfig": "packages/cypress-ct-qwik-mount/tsconfig.lib.json",
+        "assets": ["packages/cypress-ct-qwik-mount/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/cypress-ct-qwik-mount/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

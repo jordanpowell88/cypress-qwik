@@ -15,6 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@qwikifiers/cypress-ct-qwik-definition": [
+        "packages/cypress-ct-qwik-definition/src/index.ts"
+      ],
+      "@qwikifiers/cypress-ct-qwik-mount": [
+        "packages/cypress-ct-qwik-mount/src/index.ts"
+      ],
       "cypress-ct-qwik": ["packages/cypress-ct-qwik/src/index.ts"]
     }
   },

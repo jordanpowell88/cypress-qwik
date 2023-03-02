@@ -1,0 +1,26 @@
+{
+  "name": "cypress-ct-qwik-definition",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/cypress-ct-qwik-definition/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/cypress-ct-qwik-definition",
+        "main": "packages/cypress-ct-qwik-definition/src/definition.ts",
+        "tsConfig": "packages/cypress-ct-qwik-definition/tsconfig.lib.json",
+        "assets": ["packages/cypress-ct-qwik-definition/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/cypress-ct-qwik-definition/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
