@@ -3,8 +3,10 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "declaration": true,
-    "types": ["node", "cypress"]
+    "types": ["node"],
+    "target": "ES2015",
+    "module": "CommonJS"
   },
-  "include": ["src/**/*.tsx"],
+  "include": ["src/**/*.ts"],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
 }

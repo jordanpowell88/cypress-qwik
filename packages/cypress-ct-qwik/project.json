@@ -5,9 +5,10 @@
   "sourceRoot": "packages/cypress-ct-qwik/src",
   "projectType": "library",
   "targets": {
-    "prebuild": {
+    "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
+      "dependsOn": ["^build"],
       "options": {
         "outputPath": "dist/packages/cypress-ct-qwik",
         "tsConfig": "packages/cypress-ct-qwik/tsconfig.lib.json",
@@ -41,14 +42,13 @@
         ]
       }
     },
-    "build": {
+    "postbuild": {
       "executor": "nx:run-commands",
-      "dependsOn": ["^build", "prebuild"],
+      "dependsOn": ["build"],
       "options": {
         "commands": [
           "cp -r dist/packages/cypress-ct-qwik node_modules",
-          "cp -r dist/packages/cypress-ct-qwik-definition/src node_modules/cypress-ct-qwik",
-          "cp -r dist/packages/cypress-ct-qwik-mount/src node_modules/cypress-ct-qwik"
+          "cp -r dist/packages/cypress-ct-qwik-definition/src node_modules/cypress-ct-qwik"
         ]
       },
       "outputPath": "node_modules/cypress-ct-qwik",
@@ -70,8 +70,5 @@
     }
   },
   "tags": [],
-  "implicitDependencies": [
-    "cypress-ct-qwik-mount",
-    "cypress-ct-qwik-definition"
-  ]
+  "implicitDependencies": ["cypress-ct-qwik-definition"]
 }

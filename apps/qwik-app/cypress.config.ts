@@ -1,5 +1,10 @@
 import { defineConfig } from 'cypress';
 
 export default defineConfig({
-  component: {},
+  component: {
+    devServer: {
+      framework: 'cypress-ct-qwik',
+      bundler: 'vite',
+    } as any,
+  },
 });
