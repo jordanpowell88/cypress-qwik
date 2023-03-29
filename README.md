@@ -45,33 +45,6 @@ npm install -D cypress-ct-qwik
 
 1. Run cypress (in watch mode) after installation
 2. Follow the configuration wizard
-3. Add `addQwikLoader` to the `component.ts` file -
-
-```ts
-// component.ts
-
-import { addQwikLoader } from 'cypress-ct-qwik';
-
-addQwikLoader();
-```
-
-4. Add the `mount` command to `support/commands.ts` -
-
-```ts
-// commands.ts
-
-import { mount } from 'cypress-ct-qwik';
-
-declare namespace Cypress {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  interface Chainable<Subject> {
-    mount: typeof mount;
-  }
-}
-//
-
-Cypress.Commands.add('mount', mount);
-```
 
 ## Usage
 

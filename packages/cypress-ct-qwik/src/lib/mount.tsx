@@ -1,12 +1,15 @@
 import type { JSXNode, RenderResult } from '@builder.io/qwik';
 import { render } from '@builder.io/qwik';
 import { getContainerEl, setupHooks } from '@cypress/mount-utils';
+import { addQwikLoader } from './add-qwik-loader';
 
 let destroy: () => void | undefined;
 
 function cleanup() {
   if (destroy) destroy();
 }
+
+addQwikLoader();
 
 export function mount(element: JSXNode) {
   const root = getContainerEl();
